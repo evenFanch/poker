@@ -40,21 +40,21 @@ public class PanelBoutons extends JPanel implements ActionListener
 	{
 		if (e.getSource().equals(this.btnCoucher))
 		{
-			this.ctrl.getJeu().jouer(this.j,"Coucher");
+			this.ctrl.jouer(this.j,"Coucher");
 		}
 
 		if (e.getSource().equals(this.btnRelancer))
 		{
 			if (this.relancerTxt.getText().equals(""))
-				this.ctrl.getJeu().jouer(this.j,"RelancerDouble");
+				this.ctrl.jouer(this.j,"RelancerDouble");
 			else 
-				this.ctrl.getJeu().jouer(this.j,"Relancer : "+this.relancerTxt.getText());
+				this.ctrl.jouer(this.j,"Relancer : "+this.relancerTxt.getText());
 
 		}
 
 		if (e.getSource().equals(this.btnSuivre))
 		{
-			this.ctrl.getJeu().jouer(this.j,"Suivre");
+			this.ctrl.jouer(this.j,"Suivre");
 		}
 
 	}
