@@ -5,8 +5,6 @@ public class Controleur
 	private FrameJoueur  		frJoueur;
 	private FramePlateau 		frPlateau;
 	private Jeu					jeuC;
-	private 
-	
 
 	public Controleur 
 	{
@@ -21,7 +19,7 @@ public class Controleur
 
 	public void jouer(Joueur j, String action)
 	{
-		jeuC.action();
+		jeuC.action(j,action);
 	}
 
 	public void majIHM ()

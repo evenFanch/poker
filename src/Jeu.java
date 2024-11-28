@@ -41,12 +41,12 @@ public class Jeu
 
 	public boolean jouerTour ()
 	{
-		int miseMax;
 
 		for (Joueur j : this.lstJoueurEnJeu)
 			if (!j.getAJouer())
 				return false;
 
+		Paquet.distribuerPlateau(this.tour);
 		if (this.tour<5)
 			this.tour++;
 		else 
@@ -56,6 +56,17 @@ public class Jeu
 		}
 		return true;
 
+	}
+
+	public void action (Joueur j, String action)
+	{
+		int miseMax;
+
+		if (tourDeJouer != j)
+			return ;
+		
+		this.changerJoueur();
+		this.jouerTour()
 	}
 
 
@@ -81,6 +92,12 @@ public class Jeu
 			this.tourDeJouer=this.lstJoueurEnJeu.get(index);
 		else 
 			this.tourDeJouer= this.lstJoueurEnJeu.get(0);
+	}
+
+	public void distribuerCartes ()
+	{
+		for (Joueur j : this.lstJoueur)
+			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte())
 	}
 
 	public ArrayList<Joueur> getJoueurs () { return this. lstJoueur;}
