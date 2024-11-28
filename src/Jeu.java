@@ -11,6 +11,7 @@ public class Jeu
 	 */
 
 	private int manche;
+	private int miseMax;
 	private Controleur ctrl;
 
 	private ArrayList<Joueur>	lstJoueur;
@@ -36,6 +37,7 @@ public class Jeu
 
 		this.tour=1;
 		this.manche =1;
+		this.miseMax=0;
 
 	}
 
@@ -47,11 +49,13 @@ public class Jeu
 				return false;
 
 		Paquet.distribuerPlateau(this.tour);
+		this.miseMax=0;
 		if (this.tour<5)
 			this.tour++;
 		else 
 		{
 			this.tour=1				;
+			this.verifGagnant()		;
 			this.changerManche()	;
 		}
 		return true;
@@ -60,15 +64,46 @@ public class Jeu
 
 	public void action (Joueur j, String action)
 	{
-		int miseMax;
 
 		if (tourDeJouer != j)
 			return ;
 		
+		if (action.equals("Coucher"))
+			this.lstJoueurEnJeu.remove(this.lstJoueur.indexOf(j))
+		
+		if (action.equals("Suivre"))
+		{
+			j.setMise(this.miseMax);
+		}
+
+		if (action.startsWith("Relancer"))
+		{
+			int index = action.indexOf(":");
+
+			if (index == -1)
+				j.setMise(this.miseMax*2);
+			else 
+				j.setMise(Integer.parseInt(action.substring(index+2)));
+		}
+
+		if (j.getMise()<this.miseMax)
+			return ;
+		else if (j.getMise() > this.miseMax)
+			for (Joueur j : this.lstJoueurEnJeu)
+				j.setAJouer(false);
+		
+		this.miseMax = j.getMise();
+		j.setCredits(j.getCredits()-this.miseMax);
+		
+		j.setAJouer(true);
 		this.changerJoueur();
 		this.jouerTour()
 	}
 
+	public void verifGagnant()
+	{
+
+	}
 
 	public void changerManche ()
 	{
