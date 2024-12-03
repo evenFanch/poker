@@ -69,7 +69,7 @@ public class Jeu
 			return ;
 		
 		if (action.equals("Coucher"))
-			this.lstJoueurEnJeu.remove(this.lstJoueur.indexOf(j))
+			this.lstJoueurEnJeu.remove(this.lstJoueur.indexOf(j));
 		
 		if (action.equals("Suivre"))
 		{
@@ -88,21 +88,21 @@ public class Jeu
 
 		if (j.getMise()<this.miseMax)
 			return ;
-		else if (j.getMise() > this.miseMax)
-			for (Joueur j : this.lstJoueurEnJeu)
-				j.setAJouer(false);
+		else 
+			for (Joueur ji : this.lstJoueurEnJeu)
+				ji.setAJouer(false);
 		
 		this.miseMax = j.getMise();
 		j.setCredits(j.getCredits()-this.miseMax);
 		
 		j.setAJouer(true);
 		this.changerJoueur();
-		this.jouerTour()
+		this.jouerTour();
 	}
 
 	public void verifGagnant()
 	{
-
+		return;
 	}
 
 	public void changerManche ()
@@ -111,7 +111,7 @@ public class Jeu
 
 		for (Joueur j : this.lstJoueur)
 		{
-			if (j.getCredits<=0)
+			if (j.getCredits()<=0)
 				this.lstJoueur.remove(this.lstJoueur.indexOf(j));
 			else 
 				this.lstJoueurEnJeu.add(j);
@@ -132,10 +132,19 @@ public class Jeu
 	public void distribuerCartes ()
 	{
 		for (Joueur j : this.lstJoueur)
-			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte())
+			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte());
 	}
 
 	public ArrayList<Joueur> getJoueurs () { return this. lstJoueur;}
+	public int getTour    () {return this.tour  ;}
+	public int getManche  () {return this.manche;}
+	public int getMiseMAx () {return this.manche;}
+
+	public int getPot()
+	{
+		for (Joueur j : this.lstJoueur)
+			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte());
+	}
 
 
 }

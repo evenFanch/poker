@@ -2,18 +2,18 @@ import java.util.*;
 
 public class Controleur 
 {
-	private FrameJoueur  		frJoueur;
-	private FramePlateau 		frPlateau;
-	private Jeu					jeuC;
+	private ArrayList<FrameJoueur>  	lstFrJoueur;
+	private FramePlateau 				frPlateau;
+	private Jeu							jeuC;
 
-	public Controleur 
+	public Controleur ()
 	{
-		this.frJoueur = new FramePlateau(this);
+		this.frPlateau = new FramePlateau(this);
 
 		this.jeuC = new Jeu(this);
 		
 		for (Joueur j : this.jeuC.getJoueurs())
-			new FramePlateau(this, j);
+			this.lstFrJoueur.add(new FrameJoueur(this, j));
 		
 	}
 
@@ -24,9 +24,12 @@ public class Controleur
 
 	public void majIHM ()
 	{
-		this.frJoueur.getPanelJoueur().repaint();
+		for (FrameJoueur fr : this.lstFrJoueur)
+			fr.getPanelJoueur().repaint();
 		this.frPlateau.getPanelPlateau().repaint();
 	}
+
+	public Jeu getJeu() { return this.jeuC;}
 
 	public static void main (String[] a)
 	{
