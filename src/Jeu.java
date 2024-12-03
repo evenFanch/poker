@@ -69,7 +69,16 @@ public class Jeu
 			return ;
 		
 		if (action.equals("Coucher"))
-			this.lstJoueurEnJeu.remove(this.lstJoueur.indexOf(j));
+		{
+			int index=0 ; 
+
+			for (int i=0; i< this.lstJoueurEnJeu.size(); i++)
+				if (this.tourDeJouer.equals(this.lstJoueurEnJeu.get(i)))
+					index = i;
+
+			this.lstJoueurEnJeu.remove(index);
+		}
+			
 		
 		if (action.equals("Suivre"))
 		{
@@ -107,6 +116,7 @@ public class Jeu
 
 	public void changerManche ()
 	{
+		Paquet.initPaquet();
 		this.lstJoueurEnJeu = new ArrayList<Joueur>();
 
 		for (Joueur j : this.lstJoueur)
@@ -121,12 +131,23 @@ public class Jeu
 
 	public void changerJoueur ()
 	{
-		int index = this.lstJoueurEnJeu.indexOf(this.tourDeJouer);
+
+		int index=-1 ; 
+
+		for (int i=0; i< this.lstJoueurEnJeu.size(); i++)
+			if (this.tourDeJouer.equals(this.lstJoueurEnJeu.get(i)))
+				index = i;
+		//int index = this.lstJoueurEnJeu.indexOf(this.tourDeJouer);
+
+		System.out.println(this.tourDeJouer);
+		System.out.println(index);
 
 		if (index < this.lstJoueurEnJeu.size()-1)
-			this.tourDeJouer=this.lstJoueurEnJeu.get(index);
+			this.tourDeJouer=this.lstJoueurEnJeu.get(index+1);
 		else 
 			this.tourDeJouer= this.lstJoueurEnJeu.get(0);
+
+		this.ctrl.majIHM();
 	}
 
 	public void distribuerCartes ()
@@ -138,12 +159,19 @@ public class Jeu
 	public ArrayList<Joueur> getJoueurs () { return this. lstJoueur;}
 	public int getTour    () {return this.tour  ;}
 	public int getManche  () {return this.manche;}
-	public int getMiseMAx () {return this.manche;}
+	public int getMiseMax () {return this.manche;}
+	public Joueur getTourDeJouer() {return this.tourDeJouer;}
 
 	public int getPot()
 	{
+		int pot =0;
+
 		for (Joueur j : this.lstJoueur)
+		{
 			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte());
+			pot+=j.getMise();
+		}
+		return pot;
 	}
 
 

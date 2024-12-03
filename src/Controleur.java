@@ -8,12 +8,17 @@ public class Controleur
 
 	public Controleur ()
 	{
+		this.jeuC = new Jeu(this);
+		
+		this.lstFrJoueur = new ArrayList<FrameJoueur>();
+
+		Paquet.initPaquet();
 		this.frPlateau = new FramePlateau(this);
 
-		this.jeuC = new Jeu(this);
 		
 		for (Joueur j : this.jeuC.getJoueurs())
 			this.lstFrJoueur.add(new FrameJoueur(this, j));
+
 		
 	}
 

@@ -9,8 +9,8 @@ public class Paquet
 	{
 		String[] couleurs = {"Carreau", "Pique", "Coeur", "Trefle"};
 
-		this.lstCartes = new ArrayList<Carte>();
-		this.plateau   = new ArrayList<Carte>();
+		Paquet.lstCartes = new ArrayList<Carte>();
+		Paquet.plateau   = new ArrayList<Carte>();
 
 		for (int i=1; i<14;i++ )
 			for (int j=0; j<4;j++ )
@@ -36,12 +36,12 @@ public class Paquet
 	{
 		switch (tour)
 		{
-			case 1 : this.plateau   = new ArrayList<Carte>();break;
+			case 1 : Paquet.plateau   = new ArrayList<Carte>();break;
 			case 2: for (int i=0; i<3; i++)
-						this.plateau.add(Paquet.piocherCarte());
+						Paquet.plateau.add(Paquet.piocherCarte());
 					break;
-			case 3 :this.plateau.add(Paquet.piocherCarte());break;
-			case 4 :this.plateau.add(Paquet.piocherCarte());break;
+			case 3 :Paquet.plateau.add(Paquet.piocherCarte());break;
+			case 4 :Paquet.plateau.add(Paquet.piocherCarte());break;
 		}
 		
 	}

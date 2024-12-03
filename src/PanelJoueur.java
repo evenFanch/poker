@@ -41,7 +41,7 @@ public class PanelJoueur extends JPanel
 		this.g2.setColor (Color.BLACK);
 		this.g2.drawString( "credits="+this.j.getCredits(),275, 100);
 
-		if (this.j==this.ctrl.getTour())
+		if (this.j==this.ctrl.getJeu().getTourDeJouer())
 		{
 			this.g2.setColor (Color.GREEN);
 			this.g2.drawString( "C'est à votre tour",275, 200);

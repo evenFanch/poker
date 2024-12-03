@@ -32,13 +32,16 @@ public class PanelPlateau extends JPanel
 
 		this.g2.setBackground (Color.WHITE);
 		this.g2.clearRect (0,0,700,300);
-		
-		for (int i=0; i<Paquet.getPlateau().size(); i++)
+		if (Paquet.getPlateau()!=null)
 		{
-			lien=Paquet.getPlateau().get(i).getValeur()+""+Paquet.getPlateau().get(i).getCouleur();
-			this.g2.drawImage( getToolkit().getImage("images/"+lien+".gif"), x,y,this);
-			x+=100;
+			for (int i=0; i<Paquet.getPlateau().size(); i++)
+			{
+				lien=Paquet.getPlateau().get(i).getValeur()+""+Paquet.getPlateau().get(i).getCouleur();
+				this.g2.drawImage( getToolkit().getImage("images/"+lien+".gif"), x,y,this);
+				x+=100;
+			}
 		}
+		
 
 		this.g2.setColor (Color.BLACK);
 		this.g2.drawString( "Pot actuel : "+this.ctrl.getJeu().getPot(),50, 200);
