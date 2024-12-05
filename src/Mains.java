@@ -68,6 +68,37 @@ public class Mains
 		return false;
 	}
 
+	public static boolean estSuite(Carte[] tab)
+	{
+
+		Comparator<Carte> comparator = new Comparator<Carte>()
+		{
+			public int compare(Carte c1, Carte c2)
+			{
+				return c2.getValeur()-c1.getValeur();
+			}
+		};
+
+		ArrayList<Carte> temp= new ArrayList<Carte>();
+		for (Carte c : tab)
+			temp.add(c);
+		temp.sort(comparator);
+		System.out.println(temp);
+
+		int cpt=1;
+
+		for (int i=0; i<temp.size()-1; i++)
+		{
+			if (temp.get(i).getValeur()==temp.get(i+1).getValeur()+1) 
+				cpt++;
+			else 
+				cpt=1;
+			if (cpt==5)
+				return true;
+		}
+		return false;
+	}
+
 	public static int[] mainFinale(Carte[] tab)
 	{
 		/*
@@ -157,10 +188,46 @@ public class Mains
 		if (Mains.estBrelan(tab))
 		{
 			tabMainF= new int[6];
-			tabMainF[0]=2;
+			tabMainF[0]=3;
 			carteUtiliser = new ArrayList<Carte>();
 
 			for (int i=0;i<tab.length-2;i++)
+				for (int j=i+1;j<tab.length-1;j++)
+					for (int k=j+1;k<tab.length;k++)
+						if (tab[i].getValeur()==tab[j].getValeur() && tab[i].getValeur()==tab[k].getValeur())
+						{
+							carteUtiliser.add(tab[i]);
+							carteUtiliser.add(tab[j]);
+							carteUtiliser.add(tab[k]);
+						}
+			carteUtiliser.sort(comparator);
+
+			System.out.println(carteUtiliser);
+
+			for (int i=0; i<carteUtiliser.size(); i++)
+				if (i<3)
+					tabMainF[i+1] = carteUtiliser.get(i).getValeur();
+
+			if (carteUtiliser.size()>3)
+			{
+				carteUtiliser.remove(3);
+				carteUtiliser.remove(3);
+				carteUtiliser.remove(3);
+			}
+			System.out.println(carteUtiliser);
+		}
+
+		//Verification Suite
+		if (Mains.estSuite(tab))
+		{
+			tabMainF= new int[6];
+			tabMainF[0]=4;
+			carteUtiliser = new ArrayList<Carte>();
+			ArrayList<Carte> tempSuite= new ArrayList<Carte>();
+			for (Carte c : tab)
+				tempSuite.add(c);
+
+			for (int i=0;i<tempSuite.size();i++)
 				for (int j=i+1;j<tab.length-1;j++)
 					for (int k=j+1;k<tab.length;k++)
 						if (tab[i].getValeur()==tab[j].getValeur() && tab[i].getValeur()==tab[k].getValeur())
@@ -204,10 +271,7 @@ public class Mains
 		}
 			
 		
-
 		System.out.println(temp);
-
-		
 
 		temp.sort(comparator);
 		System.out.println(temp);
@@ -233,15 +297,15 @@ public class Mains
 
 	public static void main(String[] a)
 	{
-		Carte[] testTab = {new Carte (12, "Carreau"),
-							new Carte (13, "Carreau"),
-							new Carte (13, "Carreau"),
+		Carte[] testTab = {new Carte (15, "Carreau"),
 							new Carte (12, "Carreau"),
-							new Carte (12, "Carreau"),
-							new Carte (13, "Carreau"),
-							new Carte (2, "Carreau")};
+							new Carte (11, "Carreau"),
+							new Carte (10, "Carreau"),
+							new Carte (9, "Carreau"),
+							new Carte (8, "Carreau"),
+							new Carte (6, "Carreau")};
 
-		Mains.mainFinale(testTab);
-		//System.out.println (Mains.estBrelan(testTab));
+		//Mains.mainFinale(testTab);
+		System.out.println (Mains.estSuite(testTab));
 	}
 }
