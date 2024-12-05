@@ -23,7 +23,7 @@ public class Paquet
 	public static Carte piocherCarte()
 	{
 		Random rd = new Random();
-		int entierA = rd.nextInt(lstCartes.size());
+		int entierA = rd.nextInt(Paquet.lstCartes.size());
 
 		Carte c = lstCartes.get(entierA);
 

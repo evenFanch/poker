@@ -61,9 +61,11 @@ public class Joueur
 		String str="";
 
 		str+="			Nom : "+this.nom;
+		str+="\n  Argent restant : "+this.credits;
 		str+="\n  Carte 1 : "+this.main[0];
 		str+="\n  Carte 2 : "+this.main[1];
-		str+="\n ";
+		str+="\n  A jouer : "+ this.aJouer;
+		str+="\n";
 
 		return str;
 	}

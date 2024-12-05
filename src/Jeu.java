@@ -13,6 +13,7 @@ public class Jeu
 	private int manche;
 	private int miseMax;
 	private Controleur ctrl;
+	private int  pot ;
 
 	private ArrayList<Joueur>	lstJoueur;
 	private ArrayList<Joueur>	lstJoueurEnJeu;
@@ -31,7 +32,12 @@ public class Jeu
 		this.lstJoueur.add(new Joueur("Jean4"));
 
 		for (Joueur j : lstJoueur)
+		{
 			this.lstJoueurEnJeu.add(j);
+		}
+		Paquet.initPaquet();
+		this.distribuerCartes();
+			
 
 		this.tourDeJouer = this.lstJoueurEnJeu.get(0);
 
@@ -43,13 +49,17 @@ public class Jeu
 
 	public boolean jouerTour ()
 	{
-
 		for (Joueur j : this.lstJoueurEnJeu)
 			if (!j.getAJouer())
 				return false;
 
+		System.out.println("test");
 		Paquet.distribuerPlateau(this.tour);
 		this.miseMax=0;
+
+		for (Joueur j : this.lstJoueurEnJeu)
+			j.setAJouer(false);
+
 		if (this.tour<5)
 			this.tour++;
 		else 
@@ -97,13 +107,19 @@ public class Jeu
 
 		if (j.getMise()<this.miseMax)
 			return ;
-		else 
+		else if (j.getMise()>this.miseMax)
 			for (Joueur ji : this.lstJoueurEnJeu)
 				ji.setAJouer(false);
 		
+		for (Joueur jik : this.lstJoueur)
+			System.out.println(jik);
+
+		
 		this.miseMax = j.getMise();
 		j.setCredits(j.getCredits()-this.miseMax);
-		
+
+		System.out.println("Mise : "+this.miseMax);
+		this.pot+=j.getMise();
 		j.setAJouer(true);
 		this.changerJoueur();
 		this.jouerTour();
@@ -117,6 +133,8 @@ public class Jeu
 	public void changerManche ()
 	{
 		Paquet.initPaquet();
+		this.pot=0;
+		
 		this.lstJoueurEnJeu = new ArrayList<Joueur>();
 
 		for (Joueur j : this.lstJoueur)
@@ -127,6 +145,7 @@ public class Jeu
 				this.lstJoueurEnJeu.add(j);
 		}
 
+		this.distribuerCartes();
 	}
 
 	public void changerJoueur ()
@@ -164,14 +183,7 @@ public class Jeu
 
 	public int getPot()
 	{
-		int pot =0;
-
-		for (Joueur j : this.lstJoueur)
-		{
-			j.setCartes(Paquet.piocherCarte(), Paquet.piocherCarte());
-			pot+=j.getMise();
-		}
-		return pot;
+		return this.pot;
 	}
 
 
